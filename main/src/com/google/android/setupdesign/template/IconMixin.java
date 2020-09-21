@@ -22,12 +22,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import com.google.android.setupcompat.internal.TemplateLayout;
 import com.google.android.setupcompat.template.Mixin;
 import com.google.android.setupdesign.R;
@@ -172,7 +172,7 @@ public class IconMixin implements Mixin {
     return iconView != null ? iconView.getContentDescription() : null;
   }
 
-  /** Sets the visibiltiy of the icon view */
+  /** Sets the visibility of the icon view */
   public void setVisibility(int visibility) {
     final ImageView iconView = getView();
     if (iconView != null) {
