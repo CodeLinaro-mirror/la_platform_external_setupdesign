@@ -28,15 +28,15 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaPlayer.OnSeekCompleteListener;
 import android.net.Uri;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.Nullable;
-import androidx.annotation.RawRes;
-import androidx.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
+import androidx.annotation.Nullable;
+import androidx.annotation.RawRes;
+import androidx.annotation.VisibleForTesting;
 import com.google.android.setupdesign.R;
 import java.io.IOException;
 
@@ -138,6 +138,28 @@ public class IllustrationVideoView extends TextureView
       this.videoResPackageName = videoResPackageName;
       createMediaPlayer();
     }
+  }
+
+  /**
+   * Set the video to be played by this view.
+   *
+   * @param resourceEntry the {@link com.google.android.setupdesign.util.Partner.ResourceEntry} of
+   *     the video, typically an MP4 under res/raw.
+   */
+  public void setVideoResourceEntry(
+      com.google.android.setupdesign.util.Partner.ResourceEntry resourceEntry) {
+    setVideoResource(resourceEntry.id, resourceEntry.packageName);
+  }
+
+  /**
+   * Set the video to be played by this view.
+   *
+   * @param resourceEntry the {@link com.google.android.setupcompat.partnerconfig.ResourceEntry} of
+   *     the video, typically an MP4 under res/raw.
+   */
+  public void setVideoResourceEntry(
+      com.google.android.setupcompat.partnerconfig.ResourceEntry resourceEntry) {
+    setVideoResource(resourceEntry.getResourceId(), resourceEntry.getPackageName());
   }
 
   /**
