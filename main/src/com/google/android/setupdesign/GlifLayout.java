@@ -23,10 +23,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.ColorInt;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,12 +31,17 @@ import android.view.ViewStub;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import androidx.annotation.ColorInt;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.google.android.setupcompat.PartnerCustomizationLayout;
 import com.google.android.setupcompat.partnerconfig.PartnerConfig;
 import com.google.android.setupcompat.partnerconfig.PartnerConfigHelper;
 import com.google.android.setupcompat.template.StatusBarMixin;
 import com.google.android.setupdesign.template.HeaderMixin;
 import com.google.android.setupdesign.template.IconMixin;
+import com.google.android.setupdesign.template.IllustrationProgressMixin;
 import com.google.android.setupdesign.template.ProgressBarMixin;
 import com.google.android.setupdesign.template.RequireScrollMixin;
 import com.google.android.setupdesign.template.ScrollViewScrollHandlingDelegate;
@@ -115,6 +116,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
     registerMixin(HeaderMixin.class, new HeaderMixin(this, attrs, defStyleAttr));
     registerMixin(IconMixin.class, new IconMixin(this, attrs, defStyleAttr));
     registerMixin(ProgressBarMixin.class, new ProgressBarMixin(this));
+    registerMixin(IllustrationProgressMixin.class, new IllustrationProgressMixin(this));
     final RequireScrollMixin requireScrollMixin = new RequireScrollMixin(this);
     registerMixin(RequireScrollMixin.class, requireScrollMixin);
 
@@ -157,11 +159,13 @@ public class GlifLayout extends PartnerCustomizationLayout {
   }
 
   private void tryApplyPartnerCustomizationStyleToShortDescription() {
-    if (applyPartnerHeavyThemeResource) {
-      TextView description =
-          this.findManagedViewById(com.google.android.setupdesign.R.id.sud_layout_description);
-      if (description != null) {
-        DescriptionStyler.applyPartnerCustomizationStyle(description);
+    TextView description =
+        this.findManagedViewById(com.google.android.setupdesign.R.id.sud_layout_description);
+    if (description != null) {
+      if (applyPartnerHeavyThemeResource) {
+        DescriptionStyler.applyPartnerCustomizationHeavyStyle(description);
+      } else if (shouldApplyPartnerResource()) {
+        DescriptionStyler.applyPartnerCustomizationLightStyle(description);
       }
     }
   }
@@ -187,8 +191,8 @@ public class GlifLayout extends PartnerCustomizationLayout {
    * the content area outside of the scrolling container. The header can only be inflated once per
    * instance of this layout.
    *
-   * @param header The layout to be inflated as the header.
-   * @return The root of the inflated header view.
+   * @param header The layout to be inflated as the header
+   * @return The root of the inflated header view
    */
   public View inflateStickyHeader(@LayoutRes int header) {
     ViewStub stickyHeaderStub = findManagedViewById(R.id.sud_layout_sticky_header);
@@ -253,7 +257,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
    * drawn with this color.
    *
    * @param color The color to use as the base color of the background. If {@code null}, {@link
-   *     #getPrimaryColor()} will be used.
+   *     #getPrimaryColor()} will be used
    */
   public void setBackgroundBaseColor(@Nullable ColorStateList color) {
     backgroundBaseColor = color;

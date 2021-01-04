@@ -18,10 +18,10 @@ package com.google.android.setupdesign.util;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.TypedValue;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.google.android.setupcompat.partnerconfig.PartnerConfig;
 import com.google.android.setupcompat.partnerconfig.PartnerConfigHelper;
 
@@ -72,6 +72,22 @@ final class TextViewPartnerStyler {
       if (font != null) {
         textView.setTypeface(font);
       }
+    }
+
+    textView.setGravity(textPartnerConfigs.getTextGravity());
+  }
+
+  /**
+   * Applies given partner configurations {@code textPartnerConfigs} to the {@code textView}.
+   *
+   * @param textView A text view would apply the gravity
+   * @param textPartnerConfigs A partner conflagrations contains text gravity would be set
+   */
+  public static void applyPartnerCustomizationLightStyle(
+      @NonNull TextView textView, @NonNull TextPartnerConfigs textPartnerConfigs) {
+
+    if (textView == null || textPartnerConfigs == null) {
+      return;
     }
 
     textView.setGravity(textPartnerConfigs.getTextGravity());
