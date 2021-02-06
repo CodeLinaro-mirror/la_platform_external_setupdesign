@@ -39,13 +39,17 @@ import com.google.android.setupcompat.PartnerCustomizationLayout;
 import com.google.android.setupcompat.partnerconfig.PartnerConfig;
 import com.google.android.setupcompat.partnerconfig.PartnerConfigHelper;
 import com.google.android.setupcompat.template.StatusBarMixin;
+import com.google.android.setupdesign.template.DescriptionMixin;
 import com.google.android.setupdesign.template.HeaderMixin;
 import com.google.android.setupdesign.template.IconMixin;
 import com.google.android.setupdesign.template.IllustrationProgressMixin;
 import com.google.android.setupdesign.template.ProgressBarMixin;
 import com.google.android.setupdesign.template.RequireScrollMixin;
 import com.google.android.setupdesign.template.ScrollViewScrollHandlingDelegate;
+import com.google.android.setupdesign.util.BuildCompatUtils;
 import com.google.android.setupdesign.util.DescriptionStyler;
+import com.google.android.setupdesign.util.LayoutStyler;
+import com.google.android.setupdesign.util.PartnerStyleHelper;
 
 /**
  * Layout for the GLIF theme used in Setup Wizard for N.
@@ -67,8 +71,6 @@ import com.google.android.setupdesign.util.DescriptionStyler;
  * }</pre>
  */
 public class GlifLayout extends PartnerCustomizationLayout {
-
-  private static final String TAG = "GlifLayout";
 
   private ColorStateList primaryColor;
 
@@ -114,6 +116,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
     applyPartnerHeavyThemeResource = shouldApplyPartnerResource() && usePartnerHeavyTheme;
 
     registerMixin(HeaderMixin.class, new HeaderMixin(this, attrs, defStyleAttr));
+    registerMixin(DescriptionMixin.class, new DescriptionMixin(this, attrs, defStyleAttr));
     registerMixin(IconMixin.class, new IconMixin(this, attrs, defStyleAttr));
     registerMixin(ProgressBarMixin.class, new ProgressBarMixin(this));
     registerMixin(IllustrationProgressMixin.class, new IllustrationProgressMixin(this));
@@ -133,6 +136,19 @@ public class GlifLayout extends PartnerCustomizationLayout {
 
     if (applyPartnerHeavyThemeResource) {
       updateContentBackgroundColorWithPartnerConfig();
+
+      View view = findManagedViewById(R.id.sud_layout_content);
+      if (view != null) {
+        // The margin of content is defined by @style/SudContentFrame. The Setupdesign library
+        // cannot obtain the content resource ID of the client, so the value of the content margin
+        // cannot be adjusted through GlifLayout. If the margin sides are changed through the
+        // partner config, it can only be based on the increased or decreased value to adjust the
+        // value of pading. In this way, the value of content margin plus padding will be equal to
+        // the value of partner config.
+        LayoutStyler.applyPartnerCustomizationExtraPaddingStyle(view);
+
+        applyPartnerCustomizationContentPaddingStyle(view);
+      }
     }
 
     ColorStateList backgroundColor =
@@ -155,12 +171,14 @@ public class GlifLayout extends PartnerCustomizationLayout {
     super.onFinishInflate();
     getMixin(IconMixin.class).tryApplyPartnerCustomizationStyle();
     getMixin(HeaderMixin.class).tryApplyPartnerCustomizationStyle();
+    getMixin(DescriptionMixin.class).tryApplyPartnerCustomizationStyle();
     tryApplyPartnerCustomizationStyleToShortDescription();
   }
 
+  // TODO: remove when all sud_layout_description has migrated to
+  // DescriptionMixin(sud_layout_subtitle)
   private void tryApplyPartnerCustomizationStyleToShortDescription() {
-    TextView description =
-        this.findManagedViewById(com.google.android.setupdesign.R.id.sud_layout_description);
+    TextView description = this.findManagedViewById(R.id.sud_layout_description);
     if (description != null) {
       if (applyPartnerHeavyThemeResource) {
         DescriptionStyler.applyPartnerCustomizationHeavyStyle(description);
@@ -173,7 +191,12 @@ public class GlifLayout extends PartnerCustomizationLayout {
   @Override
   protected View onInflateTemplate(LayoutInflater inflater, @LayoutRes int template) {
     if (template == 0) {
-      template = R.layout.sud_glif_template;
+      // TODO : use "values-land-v31" folder for sud_glif_template_s directly.
+      if (BuildCompatUtils.isAtLeastS()) {
+        template = R.layout.sud_glif_template_s;
+      } else {
+        template = R.layout.sud_glif_template;
+      }
     }
     return inflateTemplate(inflater, R.style.SudThemeGlif_Light, template);
   }
@@ -219,6 +242,22 @@ public class GlifLayout extends PartnerCustomizationLayout {
 
   public CharSequence getHeaderText() {
     return getMixin(HeaderMixin.class).getText();
+  }
+
+  public TextView getDescriptionTextView() {
+    return getMixin(DescriptionMixin.class).getTextView();
+  }
+
+  public void setDescriptionText(int title) {
+    getMixin(DescriptionMixin.class).setText(title);
+  }
+
+  public void setDescriptionText(CharSequence title) {
+    getMixin(DescriptionMixin.class).setText(title);
+  }
+
+  public CharSequence getDescriptionText() {
+    return getMixin(DescriptionMixin.class).getText();
   }
 
   public void setHeaderColor(ColorStateList color) {
@@ -320,7 +359,10 @@ public class GlifLayout extends PartnerCustomizationLayout {
    * Returns if the current layout/activity applies heavy partner customized configurations or not.
    */
   public boolean shouldApplyPartnerHeavyThemeResource() {
-    return applyPartnerHeavyThemeResource;
+
+    return applyPartnerHeavyThemeResource
+        || (shouldApplyPartnerResource()
+            && PartnerConfigHelper.shouldApplyExtendedPartnerConfig(getContext()));
   }
 
   /** Updates the background color of this layout with the partner-customizable background color. */
@@ -330,5 +372,27 @@ public class GlifLayout extends PartnerCustomizationLayout {
         PartnerConfigHelper.get(getContext())
             .getColor(getContext(), PartnerConfig.CONFIG_LAYOUT_BACKGROUND_COLOR);
     this.getRootView().setBackgroundColor(color);
+  }
+
+  @TargetApi(VERSION_CODES.JELLY_BEAN_MR1)
+  private static void applyPartnerCustomizationContentPaddingStyle(View view) {
+    Context context = view.getContext();
+    boolean partnerPaddingTopAvailable =
+        PartnerConfigHelper.get(context)
+            .isPartnerConfigAvailable(PartnerConfig.CONFIG_CONTENT_PADDING_TOP);
+
+    if (PartnerStyleHelper.shouldApplyPartnerHeavyThemeResource(view)
+        && PartnerConfigHelper.shouldApplyExtendedPartnerConfig(context)
+        && partnerPaddingTopAvailable) {
+      int paddingTop =
+          (int)
+              PartnerConfigHelper.get(context)
+                  .getDimension(context, PartnerConfig.CONFIG_CONTENT_PADDING_TOP);
+
+      if (paddingTop != view.getPaddingTop()) {
+        view.setPadding(
+            view.getPaddingStart(), paddingTop, view.getPaddingEnd(), view.getPaddingBottom());
+      }
+    }
   }
 }
