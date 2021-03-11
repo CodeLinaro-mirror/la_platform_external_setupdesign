@@ -107,6 +107,9 @@ public class GlifLayout extends PartnerCustomizationLayout {
   // All the constructors delegate to this init method. The 3-argument constructor is not
   // available in LinearLayout before v11, so call super with the exact same arguments.
   private void init(AttributeSet attrs, int defStyleAttr) {
+    if (isInEditMode()) {
+      return;
+    }
 
     TypedArray a =
         getContext().obtainStyledAttributes(attrs, R.styleable.SudGlifLayout, defStyleAttr, 0);
@@ -117,7 +120,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
     registerMixin(HeaderMixin.class, new HeaderMixin(this, attrs, defStyleAttr));
     registerMixin(DescriptionMixin.class, new DescriptionMixin(this, attrs, defStyleAttr));
     registerMixin(IconMixin.class, new IconMixin(this, attrs, defStyleAttr));
-    registerMixin(ProgressBarMixin.class, new ProgressBarMixin(this));
+    registerMixin(ProgressBarMixin.class, new ProgressBarMixin(this, attrs, defStyleAttr));
     registerMixin(IllustrationProgressMixin.class, new IllustrationProgressMixin(this));
     final RequireScrollMixin requireScrollMixin = new RequireScrollMixin(this);
     registerMixin(RequireScrollMixin.class, requireScrollMixin);
