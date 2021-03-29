@@ -26,6 +26,7 @@
     <!-- Calculated by (sud_glif_margin_start - sud_glif_button_padding) -->
     <dimen name="sud_glif_button_margin_start">8dp</dimen>
     <dimen name="sud_glif_button_padding">16dp</dimen>
+    <dimen name="sud_glif_button_min_height">48dp</dimen>
     <!-- Negative of sud_glif_button_padding -->
     <dimen name="sud_glif_negative_button_padding">-16dp</dimen>
     <dimen name="sud_glif_footer_padding_vertical">8dp</dimen>
@@ -39,6 +40,8 @@
 
     <dimen name="sud_glif_alert_dialog_corner_radius">8dp</dimen>
     <dimen name="sud_glif_v3_button_corner_radius">4dp</dimen>
+    <dimen name="sud_glif_land_header_area_weight">1</dimen>
+    <dimen name="sud_glif_land_content_area_weight">1</dimen>
 
     <!-- Content styles -->
     <dimen name="sud_check_box_line_spacing_extra">4sp</dimen>
