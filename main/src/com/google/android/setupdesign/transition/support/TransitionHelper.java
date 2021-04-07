@@ -103,16 +103,13 @@ public class TransitionHelper {
   /**
    * A wrapper method, create an {@link ActivityOptionsCompat} to transition between activities as
    * the {@link ActivityOptionsCompat} parameter of {@link
-   * androidx.activity.result.ActivityResultLauncher#launch} method.
-   *
-   * @throws IllegalArgumentException is thrown when {@code activity} is null.
+   * androidx.activity.result.ActivityResultLauncher#launch(I, ActivityOptionsCompat)} method.
    */
   @Nullable
   public static ActivityOptionsCompat makeActivityOptionsCompat(Activity activity) {
     ActivityOptionsCompat activityOptionsCompat = null;
-
     if (activity == null) {
-      throw new IllegalArgumentException("Invalid activity=" + activity);
+      return activityOptionsCompat;
     }
 
     if (getConfigTransitionType(activity) == CONFIG_TRANSITION_SHARED_X_AXIS) {
