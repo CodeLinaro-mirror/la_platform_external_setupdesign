@@ -22,6 +22,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import com.google.android.setupcompat.PartnerCustomizationLayout;
 import com.google.android.setupcompat.partnerconfig.PartnerConfig;
 import com.google.android.setupcompat.partnerconfig.PartnerConfigHelper;
@@ -107,6 +109,9 @@ public class GlifLayout extends PartnerCustomizationLayout {
   // All the constructors delegate to this init method. The 3-argument constructor is not
   // available in LinearLayout before v11, so call super with the exact same arguments.
   private void init(AttributeSet attrs, int defStyleAttr) {
+    if (isInEditMode()) {
+      return;
+    }
 
     TypedArray a =
         getContext().obtainStyledAttributes(attrs, R.styleable.SudGlifLayout, defStyleAttr, 0);
@@ -117,7 +122,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
     registerMixin(HeaderMixin.class, new HeaderMixin(this, attrs, defStyleAttr));
     registerMixin(DescriptionMixin.class, new DescriptionMixin(this, attrs, defStyleAttr));
     registerMixin(IconMixin.class, new IconMixin(this, attrs, defStyleAttr));
-    registerMixin(ProgressBarMixin.class, new ProgressBarMixin(this));
+    registerMixin(ProgressBarMixin.class, new ProgressBarMixin(this, attrs, defStyleAttr));
     registerMixin(IllustrationProgressMixin.class, new IllustrationProgressMixin(this));
     final RequireScrollMixin requireScrollMixin = new RequireScrollMixin(this);
     registerMixin(RequireScrollMixin.class, requireScrollMixin);
@@ -146,7 +151,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
         // the value of partner config.
         LayoutStyler.applyPartnerCustomizationExtraPaddingStyle(view);
 
-        applyPartnerCustomizationContentPaddingStyle(view);
+        applyPartnerCustomizationContentPaddingTopStyle(view);
       }
     }
 
@@ -242,14 +247,27 @@ public class GlifLayout extends PartnerCustomizationLayout {
     return getMixin(DescriptionMixin.class).getTextView();
   }
 
-  public void setDescriptionText(int title) {
+  /**
+   * Sets the description text and also sets the text visibility to visible. This can also be set
+   * via the XML attribute {@code app:sudDescriptionText}.
+   *
+   * @param title The resource ID of the text to be set as description
+   */
+  public void setDescriptionText(@StringRes int title) {
     getMixin(DescriptionMixin.class).setText(title);
   }
 
+  /**
+   * Sets the description text and also sets the text visibility to visible. This can also be set
+   * via the XML attribute {@code app:sudDescriptionText}.
+   *
+   * @param title The text to be set as description
+   */
   public void setDescriptionText(CharSequence title) {
     getMixin(DescriptionMixin.class).setText(title);
   }
 
+  /** Returns the current description text. */
   public CharSequence getDescriptionText() {
     return getMixin(DescriptionMixin.class).getText();
   }
@@ -268,6 +286,23 @@ public class GlifLayout extends PartnerCustomizationLayout {
 
   public Drawable getIcon() {
     return getMixin(IconMixin.class).getIcon();
+  }
+
+  /**
+   * Sets the visibility of header area in landscape mode. These views inlcudes icon, header title
+   * and subtitle. It can make the content view become full screen when set false.
+   */
+  @TargetApi(Build.VERSION_CODES.S)
+  public void setLandscapeHeaderAreaVisible(boolean visible) {
+    View view = this.findManagedViewById(R.id.sud_landscape_header_area);
+    if (view == null) {
+      return;
+    }
+    if (visible) {
+      view.setVisibility(View.VISIBLE);
+    } else {
+      view.setVisibility(View.GONE);
+    }
   }
 
   /**
@@ -369,14 +404,13 @@ public class GlifLayout extends PartnerCustomizationLayout {
   }
 
   @TargetApi(VERSION_CODES.JELLY_BEAN_MR1)
-  private static void applyPartnerCustomizationContentPaddingStyle(View view) {
+  protected static void applyPartnerCustomizationContentPaddingTopStyle(View view) {
     Context context = view.getContext();
     boolean partnerPaddingTopAvailable =
         PartnerConfigHelper.get(context)
             .isPartnerConfigAvailable(PartnerConfig.CONFIG_CONTENT_PADDING_TOP);
 
     if (PartnerStyleHelper.shouldApplyPartnerHeavyThemeResource(view)
-        && PartnerConfigHelper.shouldApplyExtendedPartnerConfig(context)
         && partnerPaddingTopAvailable) {
       int paddingTop =
           (int)
