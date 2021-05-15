@@ -34,8 +34,9 @@ import java.util.Locale;
 /** The helper reads styles from the partner configurations. */
 public final class PartnerStyleHelper {
 
+  private static final String TAG = "PartnerStyleHelper";
   /**
-   * Returns the partner configuration of layout gravity, usually apply to wigets in header area.
+   * Returns the partner configuration of layout gravity, usually apply to widgets in header area.
    */
   public static int getLayoutGravity(Context context) {
     String gravity =
@@ -134,7 +135,7 @@ public final class PartnerStyleHelper {
     return shouldApplyPartnerHeavyThemeResource(view.getContext());
   }
 
-  private static boolean shouldApplyPartnerHeavyThemeResource(Context context) {
+  static boolean shouldApplyPartnerHeavyThemeResource(Context context) {
     try {
       Activity activity = PartnerCustomizationLayout.lookupActivityFromContext(context);
       TemplateLayout layout = findLayoutFromActivity(activity);
