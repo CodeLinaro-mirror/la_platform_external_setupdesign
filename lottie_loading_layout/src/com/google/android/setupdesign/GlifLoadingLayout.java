@@ -397,19 +397,12 @@ public class GlifLoadingLayout extends GlifLayout {
                   - (int)
                       Math.min(
                           configPaddingBottom,
-                          getButtonContainerHeight(footerBarMixin.getButtonContainer()));
+                          getResources().getDimension(R.dimen.sud_glif_footer_min_height));
         }
       }
     }
 
     linearLayout.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
-  }
-
-  private static final int getButtonContainerHeight(View view) {
-    view.measure(
-        MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), MeasureSpec.EXACTLY),
-        MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), MeasureSpec.EXACTLY));
-    return view.getMeasuredHeight();
   }
 
   private void inflateLottieView() {

@@ -52,8 +52,7 @@ final class TextViewPartnerStyler {
 
     if (textPartnerConfigs.getTextLinkedColorConfig() != null
         && PartnerConfigHelper.get(context)
-            .isPartnerConfigAvailable(textPartnerConfigs.getTextLinkedColorConfig())
-        && !PartnerStyleHelper.useDynamicColor(textView)) {
+            .isPartnerConfigAvailable(textPartnerConfigs.getTextLinkedColorConfig())) {
       int linkTextColor =
           PartnerConfigHelper.get(context)
               .getColor(context, textPartnerConfigs.getTextLinkedColorConfig());
