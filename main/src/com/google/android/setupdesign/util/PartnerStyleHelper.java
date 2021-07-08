@@ -74,7 +74,7 @@ public final class PartnerStyleHelper {
    * Returns if the current layout/activity of the given {@code view} applies partner customized
    * configurations or not.
    *
-   * @param view A view would be used to get the activity and context.
+   * @param view A PartnerCustomizationLayout view, would be used to get the activity and context.
    */
   public static boolean shouldApplyPartnerResource(View view) {
     if (view == null) {
@@ -156,10 +156,49 @@ public final class PartnerStyleHelper {
     return shouldApplyPartnerResource(context) && usePartnerHeavyTheme;
   }
 
+  /**
+   * Returns if the current layout/activity applies dynamic color configurations or not.
+   *
+   * @param view A GlifLayout view would be used to get the activity and context.
+   */
+  public static boolean useDynamicColor(View view) {
+    if (view == null) {
+      return false;
+    }
+    return getDynamicColorAttributeFromTheme(view.getContext());
+  }
+
+  static boolean getDynamicColorAttributeFromTheme(Context context) {
+    try {
+      Activity activity = PartnerCustomizationLayout.lookupActivityFromContext(context);
+      TemplateLayout layout = findLayoutFromActivity(activity);
+      if (layout instanceof GlifLayout) {
+        return ((GlifLayout) layout).shouldApplyDynamicColor();
+      }
+    } catch (IllegalArgumentException | ClassCastException ex) {
+      // fall through
+    }
+
+    // try best to get dynamic color settings from attr
+    TypedArray a = context.obtainStyledAttributes(new int[] {R.attr.sucFullDynamicColor});
+    boolean useDynamicColorTheme =
+        a.hasValue(
+            com.google
+                .android
+                .setupcompat
+                .R
+                .styleable
+                .SucPartnerCustomizationLayout_sucFullDynamicColor);
+    a.recycle();
+
+    return useDynamicColorTheme;
+  }
+
   private static TemplateLayout findLayoutFromActivity(Activity activity) {
     if (activity == null) {
       return null;
     }
+    // This only worked after activity setContentView, otherwise it will return null
     View rootView = activity.findViewById(R.id.suc_layout_status);
     return rootView != null ? (TemplateLayout) rootView.getParent() : null;
   }
