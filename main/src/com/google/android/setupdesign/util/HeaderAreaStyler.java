@@ -30,12 +30,14 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import com.google.android.setupcompat.partnerconfig.PartnerConfig;
 import com.google.android.setupcompat.partnerconfig.PartnerConfigHelper;
+import com.google.android.setupdesign.R;
 import com.google.android.setupdesign.util.TextViewPartnerStyler.TextPartnerConfigs;
 
 /**
@@ -67,6 +69,7 @@ public final class HeaderAreaStyler {
             null,
             PartnerConfig.CONFIG_HEADER_TEXT_SIZE,
             PartnerConfig.CONFIG_HEADER_FONT_FAMILY,
+            null,
             PartnerConfig.CONFIG_HEADER_TEXT_MARGIN_TOP,
             PartnerConfig.CONFIG_HEADER_TEXT_MARGIN_BOTTOM,
             PartnerStyleHelper.getLayoutGravity(header.getContext())));
@@ -90,6 +93,7 @@ public final class HeaderAreaStyler {
             PartnerConfig.CONFIG_DESCRIPTION_LINK_TEXT_COLOR,
             PartnerConfig.CONFIG_DESCRIPTION_TEXT_SIZE,
             PartnerConfig.CONFIG_DESCRIPTION_FONT_FAMILY,
+            PartnerConfig.CONFIG_DESCRIPTION_LINK_FONT_FAMILY,
             PartnerConfig.CONFIG_DESCRIPTION_TEXT_MARGIN_TOP,
             PartnerConfig.CONFIG_DESCRIPTION_TEXT_MARGIN_BOTTOM,
             PartnerStyleHelper.getLayoutGravity(description.getContext())));
@@ -115,6 +119,7 @@ public final class HeaderAreaStyler {
             null,
             null,
             null,
+            null,
             PartnerStyleHelper.getLayoutGravity(header.getContext())));
   }
 
@@ -133,6 +138,7 @@ public final class HeaderAreaStyler {
     TextViewPartnerStyler.applyPartnerCustomizationLightStyle(
         description,
         new TextPartnerConfigs(
+            null,
             null,
             null,
             null,
@@ -175,6 +181,46 @@ public final class HeaderAreaStyler {
           mlp.setMargins(mlp.leftMargin, mlp.topMargin, mlp.rightMargin, bottomMargin);
           headerArea.setLayoutParams(lp);
         }
+      }
+    }
+  }
+
+  public static void applyPartnerCustomizationProgressBarStyle(@Nullable ProgressBar progressBar) {
+    if (progressBar == null) {
+      return;
+    }
+    Context context = progressBar.getContext();
+    final ViewGroup.LayoutParams lp = progressBar.getLayoutParams();
+
+    if (lp instanceof ViewGroup.MarginLayoutParams) {
+      final ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) lp;
+      int marginTop = mlp.topMargin;
+      if (PartnerConfigHelper.get(context)
+          .isPartnerConfigAvailable(PartnerConfig.CONFIG_PROGRESS_BAR_MARGIN_TOP)) {
+        marginTop =
+            (int)
+                PartnerConfigHelper.get(context)
+                    .getDimension(
+                        context,
+                        PartnerConfig.CONFIG_PROGRESS_BAR_MARGIN_TOP,
+                        context.getResources().getDimension(R.dimen.sud_progress_bar_margin_top));
+      }
+      int marginBottom = mlp.bottomMargin;
+      if (PartnerConfigHelper.get(context)
+          .isPartnerConfigAvailable(PartnerConfig.CONFIG_PROGRESS_BAR_MARGIN_BOTTOM)) {
+        marginBottom =
+            (int)
+                PartnerConfigHelper.get(context)
+                    .getDimension(
+                        context,
+                        PartnerConfig.CONFIG_PROGRESS_BAR_MARGIN_BOTTOM,
+                        context
+                            .getResources()
+                            .getDimension(R.dimen.sud_progress_bar_margin_bottom));
+      }
+
+      if (marginTop != mlp.topMargin || marginBottom != mlp.bottomMargin) {
+        mlp.setMargins(mlp.leftMargin, marginTop, mlp.rightMargin, marginBottom);
       }
     }
   }
