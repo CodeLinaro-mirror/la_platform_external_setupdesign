@@ -35,5 +35,6 @@
       android:filterTouchesWhenObscured="true"
       android:visibility="gone"
       app:icon="@drawable/sud_ic_arrow_back"
+      app:iconSize="24dp"
       tools:visibility="visible" />
 </FrameLayout>
