@@ -35,13 +35,13 @@
         style="?attr/sudItemIconContainerStyle"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:visibility="gone"
         android:gravity="start">
 
         <ImageView
             android:id="@+id/sud_items_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             tools:ignore="ContentDescription" />
 
     </FrameLayout>
