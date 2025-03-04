@@ -36,7 +36,6 @@ public class CardView extends LinearLayout implements View.OnClickListener {
   private ImageView iconView;
   private WrapTextView titleView;
   private OnClickListener onClickListener;
-  protected boolean skipClickSelection;
 
   public CardView(Context context) {
     super(context);
@@ -48,8 +47,6 @@ public class CardView extends LinearLayout implements View.OnClickListener {
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SudCardView);
     icon = a.getDrawable(R.styleable.SudCardView_sudIcon);
     title = a.getText(R.styleable.SudCardView_sudTitleText);
-    skipClickSelection =
-        a.getBoolean(R.styleable.SudCardView_sudCardViewSkipClickSelection, /* defValue= */ false);
     a.recycle();
     init();
   }
@@ -101,21 +98,19 @@ public class CardView extends LinearLayout implements View.OnClickListener {
 
   @Override
   public void onClick(View v) {
-    if (!skipClickSelection) {
-      v.setSelected(true);
-      if (iconView != null) {
-        iconView.setImageDrawable(
-            ContextCompat.getDrawable(this.getContext(), R.drawable.sud_ic_check_mark));
-        iconView.setSelected(true);
-        v.setContentDescription(
-            getContext()
-                .getString(
-                    com.google.android.setupdesign.strings.R.string
-                        .sud_card_view_check_mark_icon_label));
-      }
-      if (titleView != null) {
-        titleView.setSelected(true);
-      }
+    v.setSelected(true);
+    if (iconView != null) {
+      iconView.setImageDrawable(
+          ContextCompat.getDrawable(this.getContext(), R.drawable.sud_ic_check_mark));
+      iconView.setSelected(true);
+      v.setContentDescription(
+          getContext()
+              .getString(
+                  com.google.android.setupdesign.strings.R.string
+                      .sud_card_view_check_mark_icon_label));
+    }
+    if (titleView != null) {
+      titleView.setSelected(true);
     }
     if (onClickListener != null) {
       // handle the external click event.
