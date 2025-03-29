@@ -69,7 +69,7 @@
 
     </LinearLayout>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <CheckBox
         android:id="@+id/sud_items_check_box"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
