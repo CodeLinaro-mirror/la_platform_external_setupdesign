@@ -374,6 +374,7 @@
     <dimen name="sud_glif_expressive_items_icon_padding_start">0dp</dimen>
     <dimen name="sud_glif_expressive_items_icon_padding_end">0dp</dimen>
     <dimen name="sud_glif_expressive_items_icon_width">40dp</dimen>
+    <dimen name="sud_glif_expressive_list_divider_height">24dp</dimen>
     <dimen name="sud_items_section_header_padding_top">20dp</dimen>
     <dimen name="sud_items_section_header_padding_bottom">8dp</dimen>
     <dimen name="sud_items_section_header_text_size">14sp</dimen>
@@ -383,7 +384,7 @@
 
     <!-- Header layout expressive -->
     <dimen name="sud_glif_expressive_header_title_size">32sp</dimen>
-    <dimen name="sud_glif_expressive_header_title_line_spacing_extra">8sp</dimen>
+    <dimen name="sud_glif_expressive_header_title_line_height">40sp</dimen>
     <dimen name="sud_glif_expressive_description_text_size">16sp</dimen>
     <dimen name="sud_glif_expressive_description_line_spacing_extra">8sp</dimen>
 

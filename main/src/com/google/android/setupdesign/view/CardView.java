@@ -33,22 +33,20 @@ public class CardView extends LinearLayout implements View.OnClickListener {
   private Drawable icon;
   private CharSequence title;
 
+  /* The line height of the title. */
+  private int lineHeight;
+
   private ImageView iconView;
-  private WrapTextView titleView;
+  protected WrapTextView titleView;
   private OnClickListener onClickListener;
+  protected boolean skipClickSelection;
 
   public CardView(Context context) {
-    super(context);
-    init();
+    this(context, /* attrs= */ null, /* defStyleAttr= */ 0);
   }
 
   public CardView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SudCardView);
-    icon = a.getDrawable(R.styleable.SudCardView_sudIcon);
-    title = a.getText(R.styleable.SudCardView_sudTitleText);
-    a.recycle();
-    init();
+    this(context, attrs, /* defStyleAttr= */ 0);
   }
 
   public CardView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -56,6 +54,10 @@ public class CardView extends LinearLayout implements View.OnClickListener {
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SudCardView);
     icon = a.getDrawable(R.styleable.SudCardView_sudIcon);
     title = a.getText(R.styleable.SudCardView_sudTitleText);
+    skipClickSelection =
+        a.getBoolean(R.styleable.SudCardView_sudCardViewSkipClickSelection, /* defValue= */ false);
+    lineHeight =
+        a.getDimensionPixelSize(R.styleable.SudCardView_android_lineHeight, /* defValue= */ 0);
     a.recycle();
     init();
   }
@@ -69,8 +71,11 @@ public class CardView extends LinearLayout implements View.OnClickListener {
     if (iconView != null && icon != null) {
       iconView.setImageDrawable(icon);
     }
-    if (titleView != null && title != null) {
-      titleView.setText(title);
+    if (titleView != null) {
+      titleView.setLineHeight(lineHeight);
+      if (title != null) {
+        titleView.setText(title);
+      }
     }
   }
 
@@ -96,21 +101,39 @@ public class CardView extends LinearLayout implements View.OnClickListener {
     return icon;
   }
 
+  /** Sets the line height of the title. */
+  public void setLineHeight(int lineHeight) {
+    this.lineHeight = lineHeight;
+    if (titleView != null) {
+      titleView.setLineHeight(lineHeight);
+    }
+  }
+
+  /** Returns the line height of the title. */
+  public int getLineHeight() {
+    if (titleView != null) {
+      return titleView.getLineHeight();
+    }
+    return lineHeight;
+  }
+
   @Override
   public void onClick(View v) {
-    v.setSelected(true);
-    if (iconView != null) {
-      iconView.setImageDrawable(
-          ContextCompat.getDrawable(this.getContext(), R.drawable.sud_ic_check_mark));
-      iconView.setSelected(true);
-      v.setContentDescription(
-          getContext()
-              .getString(
-                  com.google.android.setupdesign.strings.R.string
-                      .sud_card_view_check_mark_icon_label));
-    }
-    if (titleView != null) {
-      titleView.setSelected(true);
+    if (!skipClickSelection) {
+      v.setSelected(true);
+      if (iconView != null) {
+        iconView.setImageDrawable(
+            ContextCompat.getDrawable(this.getContext(), R.drawable.sud_ic_check_mark));
+        iconView.setSelected(true);
+        v.setContentDescription(
+            getContext()
+                .getString(
+                    com.google.android.setupdesign.strings.R.string
+                        .sud_card_view_check_mark_icon_label));
+      }
+      if (titleView != null) {
+        titleView.setSelected(true);
+      }
     }
     if (onClickListener != null) {
       // handle the external click event.
