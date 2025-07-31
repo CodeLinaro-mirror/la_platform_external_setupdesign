@@ -17,7 +17,6 @@
 package com.google.android.setupdesign.template;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -400,10 +399,11 @@ public class RequireScrollMixin implements Mixin {
     LinearLayout footerContainer = footerBarMixin.getButtonContainer();
     CharSequence contentDescription = primaryButtonView.getContentDescription();
     int initialFooterPaddingStart = footerContainer.getPaddingStart();
-
     // Handle the case if the scroll view cannot scrollable, then show buttons when first landed on
     // the screen.
-    if (secondaryButtonView != null && secondaryButtonView.getVisibility() == View.VISIBLE) {
+    if (secondaryButtonView != null
+            && secondaryButtonView.getVisibility() == View.VISIBLE
+            && !isEverScrolledToBottom()) {
       secondaryButtonView.setVisibility(View.GONE);
     }
     ScrollView scrollView = ((GlifLayout) templateLayout).getScrollView();
@@ -415,6 +415,7 @@ public class RequireScrollMixin implements Mixin {
               // Set the state for indicating the scroll view has scrolled to bottom because for
               // this case the scroll is not needed.
               setEverScrolledToBottom(true);
+              footerBarMixin.setDownButtonEnabled(false);
 
               // Set the secondary button as visible if it exists.
               if (secondaryButtonView != null) {
@@ -436,8 +437,10 @@ public class RequireScrollMixin implements Mixin {
               // the screen has ever scrolled to the bottom, the secondary button will be set as
               // gone.
               if (isEverScrolledToBottom()) {
+                footerBarMixin.setDownButtonEnabled(false);
                 secondaryButtonView.setVisibility(View.VISIBLE);
               } else {
+                footerBarMixin.setDownButtonEnabled(true);
                 secondaryButtonView.setVisibility(View.GONE);
               }
             }
@@ -447,10 +450,12 @@ public class RequireScrollMixin implements Mixin {
     setOnRequireScrollStateChangedListener(
         scrollNeeded -> {
           if (!isEverScrolledToBottom()) {
+            footerBarMixin.setDownButtonEnabled(true);
             generateGlifExpressiveDownButton(context, primaryButtonView, footerBarMixin);
             footerContainer.setBackgroundColor(
                 ((GlifLayout) templateLayout).getFooterBackgroundColorFromStyle());
           } else {
+            footerBarMixin.setDownButtonEnabled(false);
             setupPrimaryButtonStyleWhenReachedToBottom(
                 primaryButtonView,
                 nextText,
@@ -494,7 +499,9 @@ public class RequireScrollMixin implements Mixin {
       footerBarMixin.getPrimaryButton().setText(nextText);
       footerBarMixin.getPrimaryButton().setVisibility(View.VISIBLE);
       primaryButtonView.setContentDescription(contentDescription);
-      footerContainer.setBackgroundColor(Color.TRANSPARENT);
+
+      int backgroundColor = ((GlifLayout) templateLayout).getFooterBackgroundColor();
+      footerContainer.setBackgroundColor(backgroundColor);
     } else {
       Log.i(LOG_TAG, "Cannot clean up icon for the button. Skipping set text.");
     }
