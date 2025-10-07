@@ -86,7 +86,6 @@
         <item name="sudBulletPointContainerStyle">@style/sudBulletPointContainer</item>
         <item name="sudAdditionalBodyTextStyle">@style/SudAdditionalBodyText</item>
         <item name="sudInfoFooterContainerStyle">@style/sudInfoFooterContainer</item>
-        <item name="sudInfoFooterIconContainerStyle">@style/sudInfoFooterIconContainer</item>
         <item name="sudInfoFooterIconStyle">@style/sudInfoFooterIcon</item>
         <item name="sudInfoFooterTitleStyle">@style/sudInfoFooterTitle</item>
         <item name="sudItemIconContainerStyle">@style/SudItemIconContainer</item>
@@ -125,6 +124,10 @@
         <item name="sudTextAppearanceBulletPoint">@style/TextAppearance.SudBulletPoint</item>
         <item name="sudClipChildren">true</item>
         <item name="sudClipToPadding">true</item>
+        <item name="sudRecyclerViewPaddingTop">0dp</item>
+        <item name="sudRecyclerViewMarginTop">0dp</item>
+        <item name="sudRecyclerViewPaddingBottom">0dp</item>
+        <item name="sudRecyclerViewMarginBottom">0dp</item>
     </style>
 
     <style name="SudThemeMaterial.Light" parent="Theme.AppCompat.Light.NoActionBar">
@@ -194,7 +197,6 @@
         <item name="sudBulletPointContainerStyle">@style/sudBulletPointContainer</item>
         <item name="sudAdditionalBodyTextStyle">@style/SudAdditionalBodyText</item>
         <item name="sudInfoFooterContainerStyle">@style/sudInfoFooterContainer</item>
-        <item name="sudInfoFooterIconContainerStyle">@style/sudInfoFooterIconContainer</item>
         <item name="sudInfoFooterIconStyle">@style/sudInfoFooterIcon</item>
         <item name="sudInfoFooterTitleStyle">@style/sudInfoFooterTitle</item>
         <item name="sudItemIconContainerWidth">@dimen/sud_items_icon_container_width</item>
@@ -233,6 +235,10 @@
         <item name="sudTextAppearanceBulletPoint">@style/TextAppearance.SudBulletPoint</item>
         <item name="sudClipChildren">true</item>
         <item name="sudClipToPadding">true</item>
+        <item name="sudRecyclerViewPaddingTop">0dp</item>
+        <item name="sudRecyclerViewMarginTop">0dp</item>
+        <item name="sudRecyclerViewPaddingBottom">0dp</item>
+        <item name="sudRecyclerViewMarginBottom">0dp</item>
     </style>
 
     <style name="SudBaseThemeGlif" parent="Theme.AppCompat.NoActionBar">
@@ -320,7 +326,8 @@
         <item name="sucFooterButtonPaddingStart">@dimen/sud_glif_button_padding</item>
         <item name="sucFooterButtonPaddingEnd">@dimen/sud_glif_button_padding</item>
         <item name="sucFooterBarButtonMinHeight">@dimen/sud_glif_button_min_height</item>
-        <item name="sucFooterBarButtonMiddleSpacing">@dimen/sud_glif_footer_middle_spacing</item>
+        <item name="sucFooterBarButtonMiddleSpacing">@dimen/sud_glif_footer_button_middle_spacing</item>
+        <item name="sucFooterBarButtonStackMiddleSpacing">@dimen/sud_glif_footer_button_middle_spacing</item>
         <item name="sucFooterBarButtonFontWeight">@integer/sud_glif_footer_button_weight</item>
         <item name="sucFooterBarButtonTextSize">@dimen/sud_glif_footer_button_text_size</item>
         <item name="sucFooterButtonTextLineSpacingExtra">@dimen/sud_glif_footer_button_line_spacing_extra</item>
@@ -376,7 +383,6 @@
         <item name="sudSectionItemTitleStyle">@style/SudItemTitle.SectionHeader</item>
         <item name="sudAdditionalBodyTextStyle">@style/SudAdditionalBodyText</item>
         <item name="sudInfoFooterContainerStyle">@style/sudInfoFooterContainer</item>
-        <item name="sudInfoFooterIconContainerStyle">@style/sudInfoFooterIconContainer</item>
         <item name="sudInfoFooterIconStyle">@style/sudInfoFooterIcon</item>
         <item name="sudInfoFooterTitleStyle">@style/sudInfoFooterTitle</item>
         <item name="sudCardContainerStyle">@style/SudCardContainerStyle</item>
@@ -397,6 +403,10 @@
         <item name="sudTextAppearanceBulletPoint">@style/TextAppearance.SudBulletPoint</item>
         <item name="sudClipChildren">true</item>
         <item name="sudClipToPadding">true</item>
+        <item name="sudRecyclerViewPaddingTop">0dp</item>
+        <item name="sudRecyclerViewMarginTop">0dp</item>
+        <item name="sudRecyclerViewPaddingBottom">0dp</item>
+        <item name="sudRecyclerViewMarginBottom">0dp</item>
     </style>
     <style name="SudThemeGlif" parent="SudBaseThemeGlif"/>
 
@@ -485,7 +495,8 @@
         <item name="sucFooterButtonPaddingStart">@dimen/sud_glif_button_padding</item>
         <item name="sucFooterButtonPaddingEnd">@dimen/sud_glif_button_padding</item>
         <item name="sucFooterBarButtonMinHeight">@dimen/sud_glif_button_min_height</item>
-        <item name="sucFooterBarButtonMiddleSpacing">@dimen/sud_glif_footer_middle_spacing</item>
+        <item name="sucFooterBarButtonMiddleSpacing">@dimen/sud_glif_footer_button_middle_spacing</item>
+        <item name="sucFooterBarButtonStackMiddleSpacing">@dimen/sud_glif_footer_button_middle_spacing</item>
         <item name="sucFooterBarButtonFontWeight">@integer/sud_glif_footer_button_weight</item>
         <item name="sucFooterBarButtonTextSize">@dimen/sud_glif_footer_button_text_size</item>
         <item name="sucFooterButtonTextLineSpacingExtra">@dimen/sud_glif_footer_button_line_spacing_extra</item>
@@ -541,7 +552,6 @@
         <item name="sudSectionItemTitleStyle">@style/SudItemTitle.SectionHeader</item>
         <item name="sudAdditionalBodyTextStyle">@style/SudAdditionalBodyText</item>
         <item name="sudInfoFooterContainerStyle">@style/sudInfoFooterContainer</item>
-        <item name="sudInfoFooterIconContainerStyle">@style/sudInfoFooterIconContainer</item>
         <item name="sudInfoFooterIconStyle">@style/sudInfoFooterIcon</item>
         <item name="sudInfoFooterTitleStyle">@style/sudInfoFooterTitle</item>
         <item name="sudCardContainerStyle">@style/SudCardContainerStyle</item>
@@ -562,6 +572,10 @@
         <item name="sudTextAppearanceBulletPoint">@style/TextAppearance.SudBulletPoint</item>
         <item name="sudClipChildren">true</item>
         <item name="sudClipToPadding">true</item>
+        <item name="sudRecyclerViewPaddingTop">0dp</item>
+        <item name="sudRecyclerViewMarginTop">0dp</item>
+        <item name="sudRecyclerViewPaddingBottom">0dp</item>
+        <item name="sudRecyclerViewMarginBottom">0dp</item>
     </style>
     <style name="SudThemeGlif.Light" parent="SudBaseThemeGlif.Light"/>
 
@@ -664,6 +678,7 @@
         <item name="sudDividerShown">false</item>
         <item name="sudItemContainerStyle">@style/SudItemContainerMaterialYou</item>
         <item name="sudNonActionableItemContainerStyle">@style/SudItemContainerMaterialYou</item>
+        <item name="sudIllustrationItemContainerStyle">@style/SudItemContainerMaterialYou.IllustrationItem</item>
         <item name="sudItemPaddingTop">@dimen/sud_items_padding_top_material_you</item>
         <item name="sudItemPaddingBottom">@dimen/sud_items_padding_bottom_material_you</item>
         <item name="sudItemTitleStyle">@style/SudItemTitleMaterialYou</item>
@@ -707,6 +722,7 @@
         <item name="sudDividerShown">false</item>
         <item name="sudItemContainerStyle">@style/SudItemContainerMaterialYou</item>
         <item name="sudNonActionableItemContainerStyle">@style/SudItemContainerMaterialYou</item>
+        <item name="sudIllustrationItemContainerStyle">@style/SudItemContainerMaterialYou.IllustrationItem</item>
         <item name="sudItemPaddingTop">@dimen/sud_items_padding_top_material_you</item>
         <item name="sudItemPaddingBottom">@dimen/sud_items_padding_bottom_material_you</item>
         <item name="sudItemTitleStyle">@style/SudItemTitleMaterialYou</item>
@@ -751,7 +767,6 @@
         <item name="sudFillContentLayoutStyle">@style/SudFillContentLayout</item>
         <item name="sudGlifAccountNameStyle">@style/SudGlifExpressiveAccountName</item>
         <item name="sudGlifAccountAvatarSize">@dimen/sud_account_avatar_max_height</item>
-        <item name="sudGlifAccountAvatarStyle">@style/SudGlifAccountAvatar</item>
         <item name="sudAccountNameTextSize">@dimen/sud_account_name_text_size</item>
         <item name="sudAccountNameTextColor">@color/sud_system_on_surface_dark</item>
         <item name="sudGlifIconStyle">@style/SudGlifIcon</item>
@@ -838,6 +853,7 @@
         <item name="sudFooterBackgroundColor">@color/sud_system_surface_container_high_dark</item>
         <item name="sucFooterBarPrimaryFooterBackground">@color/sud_glif_expressive_footer_button_bg_color</item>
         <item name="sucFooterBarButtonMiddleSpacing">@dimen/sud_glif_expressive_footer_button_middle_spacing</item>
+        <item name="sucFooterBarButtonStackMiddleSpacing">@dimen/sud_glif_expressive_footer_button_middle_spacing</item>
         <item name="sudItemDividerWidth">@dimen/sud_items_divder_width</item>
         <item name="sudItemBackgroundPaddingStart">@dimen/sud_items_background_padding_start</item>
         <item name="sudItemBackgroundPaddingEnd">@dimen/sud_items_background_padding_end</item>
@@ -873,7 +889,6 @@
         <item name="sudBulletPointContainerStyle">@style/sudBulletPointContainer</item>
         <item name="sudAdditionalBodyTextStyle">@style/SudAdditionalBodyTextExpressive</item>
         <item name="sudInfoFooterContainerStyle">@style/sudInfoFooterContainerExpressive</item>
-        <item name="sudInfoFooterIconContainerStyle">@style/sudInfoFooterIconContainer</item>
         <item name="sudInfoFooterIconStyle">@style/sudInfoFooterIconExpressive</item>
         <item name="sudInfoFooterTitleStyle">@style/sudInfoFooterTitleExpressive</item>
         <item name="sucFooterBarButtonFontWeight">@integer/sud_glif_expressive_footer_button_weight</item>
@@ -881,6 +896,7 @@
         <item name="sucFooterBarButtonTextSize">@dimen/sud_glif_expressive_footer_button_text_size</item>
         <item name="sucFooterButtonTextLineSpacingExtra">@dimen/sud_glif_expressive_footer_button_text_line_spacing_extra</item>
         <item name="sucFooterBarButtonOutlinedColor">@color/sud_system_outline_variant_dark</item>
+        <item name="sucGlifExpressiveStyleEnabled">true</item>
         <item name="sudItemIconContainerStyle">@style/SudExpressiveItemIconContainer</item>
         <item name="textAppearanceListItem">@style/TextAppearance.SudExpressiveItemTitle</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.SudExpressiveItemSummary</item>
@@ -888,7 +904,7 @@
         <item name="sudBulletPointTitleStyle">@style/SudBulletPointTitle</item>
         <item name="sudBulletPointSummaryStyle">?attr/sudItemSummaryStyle</item>
         <item name="sudSectionItemContainerStyle">@style/SudGlifExpressiveItemContainer.SectionItem</item>
-        <item name="sudIllustrationItemContainerStyle">@style/SudItemContainer.IllustrationItem</item>
+        <item name="sudIllustrationItemContainerStyle">@style/SudGlifExpressiveItemContainer.IllustrationItem</item>
         <item name="sudIllustrationItemStyle">@style/SudItemSummary.IllustrationStyle</item>
         <item name="sudSectionItemTitleStyle">@style/SudExpressiveItemTitle.SectionHeader</item>
         <item name="sudCardContainerStyle">@style/SudCardContainerStyle</item>
@@ -909,6 +925,11 @@
         <item name="sudTextAppearanceBulletPoint">@style/TextAppearance.SudBulletPoint</item>
         <item name="sudClipChildren">false</item>
         <item name="sudClipToPadding">false</item>
+        <item name="sudGlifAccountAvatarStyle">@style/SudGlifAccountAvatarExpressive</item>
+        <item name="sudRecyclerViewPaddingTop">@dimen/sud_glif_expressive_recycler_view_padding_top</item>
+        <item name="sudRecyclerViewMarginTop">@dimen/sud_glif_expressive_recycler_view_margin_top</item>
+        <item name="sudRecyclerViewPaddingBottom">@dimen/sud_glif_expressive_recycler_view_padding_bottom</item>
+        <item name="sudRecyclerViewMarginBottom">@dimen/sud_glif_expressive_recycler_view_margin_bottom</item>
     </style>
 
     <style name="SudBaseThemeGlifExpressive.Light" parent="Theme.Material3.DynamicColors.Light.NoActionBar">
@@ -942,7 +963,6 @@
         <item name="sudFillContentLayoutStyle">@style/SudFillContentLayout</item>
         <item name="sudGlifAccountNameStyle">@style/SudGlifExpressiveAccountName</item>
         <item name="sudGlifAccountAvatarSize">@dimen/sud_account_avatar_max_height</item>
-        <item name="sudGlifAccountAvatarStyle">@style/SudGlifAccountAvatar</item>
         <item name="sudAccountNameTextSize">@dimen/sud_account_name_text_size</item>
         <item name="sudAccountNameTextColor">@color/sud_system_on_surface_light</item>
         <item name="sudGlifIconStyle">@style/SudGlifIcon</item>
@@ -1028,6 +1048,7 @@
         <item name="sudFooterBackgroundColor">@color/sud_system_surface_container_high_light</item>
         <item name="sucFooterBarPrimaryFooterBackground">@color/sud_glif_expressive_footer_button_bg_color</item>
         <item name="sucFooterBarButtonMiddleSpacing">@dimen/sud_glif_expressive_footer_button_middle_spacing</item>
+        <item name="sucFooterBarButtonStackMiddleSpacing">@dimen/sud_glif_expressive_footer_button_middle_spacing</item>
         <item name="sudItemDividerWidth">@dimen/sud_items_divder_width</item>
         <item name="sudItemBackgroundPaddingStart">@dimen/sud_items_background_padding_start</item>
         <item name="sudItemBackgroundPaddingEnd">@dimen/sud_items_background_padding_end</item>
@@ -1064,11 +1085,11 @@
         <item name="sucFooterBarButtonTextSize">@dimen/sud_glif_expressive_footer_button_text_size</item>
         <item name="sucFooterButtonTextLineSpacingExtra">@dimen/sud_glif_expressive_footer_button_text_line_spacing_extra</item>
         <item name="sucFooterBarButtonOutlinedColor">@color/sud_system_outline_variant_light</item>
+        <item name="sucGlifExpressiveStyleEnabled">true</item>
         <item name="sudBulletPointIconContainerStyle">@style/sudBulletPointIconContainer</item>
         <item name="sudAdditionalBodyTextStyle">@style/SudAdditionalBodyTextExpressive</item>
         <item name="sudBulletPointContainerStyle">@style/sudBulletPointContainer</item>
         <item name="sudInfoFooterContainerStyle">@style/sudInfoFooterContainerExpressive</item>
-        <item name="sudInfoFooterIconContainerStyle">@style/sudInfoFooterIconContainer</item>
         <item name="sudInfoFooterIconStyle">@style/sudInfoFooterIconExpressive</item>
         <item name="sudInfoFooterTitleStyle">@style/sudInfoFooterTitleExpressive</item>
         <item name="sudItemIconContainerStyle">@style/SudExpressiveItemIconContainer</item>
@@ -1078,7 +1099,7 @@
         <item name="sudBulletPointTitleStyle">@style/SudBulletPointTitle</item>
         <item name="sudBulletPointSummaryStyle">?attr/sudItemSummaryStyle</item>
         <item name="sudSectionItemContainerStyle">@style/SudGlifExpressiveItemContainer.SectionItem</item>
-        <item name="sudIllustrationItemContainerStyle">@style/SudItemContainer.IllustrationItem</item>
+        <item name="sudIllustrationItemContainerStyle">@style/SudGlifExpressiveItemContainer.IllustrationItem</item>
         <item name="sudIllustrationItemStyle">@style/SudItemSummary.IllustrationStyle</item>
         <item name="sudSectionItemTitleStyle">@style/SudExpressiveItemTitle.SectionHeader</item>
         <item name="sudCardContainerStyle">@style/SudCardContainerStyle</item>
@@ -1099,10 +1120,41 @@
         <item name="sudTextAppearanceBulletPoint">@style/TextAppearance.SudBulletPoint</item>
         <item name="sudClipChildren">false</item>
         <item name="sudClipToPadding">false</item>
+        <item name="sudGlifAccountAvatarStyle">@style/SudGlifAccountAvatarExpressive</item>
+        <item name="sudRecyclerViewPaddingTop">@dimen/sud_glif_expressive_recycler_view_padding_top</item>
+        <item name="sudRecyclerViewMarginTop">@dimen/sud_glif_expressive_recycler_view_margin_top</item>
+        <item name="sudRecyclerViewPaddingBottom">@dimen/sud_glif_expressive_recycler_view_padding_bottom</item>
+        <item name="sudRecyclerViewMarginBottom">@dimen/sud_glif_expressive_recycler_view_margin_bottom</item>
     </style>
 
     <style name="SudThemeGlifExpressive" parent="SudBaseThemeGlifExpressive" />
     <style name="SudThemeGlifExpressive.Light" parent="SudBaseThemeGlifExpressive.Light" />
+
+    <style name="SudThemeModalGlifExpressive" parent="SudBaseThemeGlifExpressive">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBlurBehindEnabled" tools:ignore="NewApi">true</item>
+        <item name="android:windowBlurBehindRadius" tools:ignore="NewApi">34dp</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="SudThemeModalGlifExpressive.Light" parent="SudBaseThemeGlifExpressive.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBlurBehindEnabled" tools:ignore="NewApi">true</item>
+        <item name="android:windowBlurBehindRadius" tools:ignore="NewApi">34dp</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackground"> @android:color/transparent</item>
+    </style>
+
+    <style name="SudThemeModalGlifExpressive.DayNight" parent="SudThemeModalGlifExpressive.Light" />
 
     <style name="SudDynamicColorTheme" />
     <style name="SudDynamicColorTheme.Light"  />
@@ -1552,8 +1604,8 @@
         <item name="android:textFontWeight" tools:targetApi="28">500</item>
         <item name="fontFamily">google-sans-flex</item>
         <item name="android:fontFamily">google-sans-flex</item>
-        <item name="fontVariationSettings">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 600.0</item>
-        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 600.0</item>
+        <item name="fontVariationSettings">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 600</item>
+        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 600</item>
     </style>
 
     <style name="SudPromoItemSummary">
@@ -1566,6 +1618,30 @@
         <item name="android:paddingBottom">@dimen/sud_items_illustration_item_padding_bottom</item>
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="SudItemContainerMaterialYou.IllustrationItem" parent="SudItemContainerMaterialYou">
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">@dimen/sud_items_illustration_item_padding_bottom</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="SudGlifExpressiveItemContainer.IllustrationItem" parent="SudGlifExpressiveItemContainer">
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">@dimen/sud_items_illustration_item_padding_bottom</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@null</item>
     </style>
@@ -1602,8 +1678,8 @@
         <item name="android:layout_marginBottom">?attr/sudItemSummaryPaddingBottom</item>
         <item name="fontFamily">google-sans-flex</item>
         <item name="android:fontFamily">google-sans-flex</item>
-        <item name="fontVariationSettings">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
-        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
+        <item name="fontVariationSettings">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
+        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
     </style>
 
     <style name="SudItemContainerMaterialYou.Description" parent="SudItemContainerMaterialYou">
@@ -1645,8 +1721,8 @@
         <item name="android:textFontWeight" tools:targetApi="28">500</item>
         <item name="fontFamily">google-sans-flex</item>
         <item name="android:fontFamily">google-sans-flex</item>
-        <item name="fontVariationSettings">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
-        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
+        <item name="fontVariationSettings">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
+        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
     </style>
 
     <style name="SudItemTitle.GlifDescription" parent="SudItemTitle">
@@ -1673,8 +1749,8 @@
         <item name="android:textFontWeight" tools:targetApi="28">500</item>
         <item name="fontFamily">google-sans-flex</item>
         <item name="android:fontFamily">google-sans-flex</item>
-        <item name="fontVariationSettings">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
-        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
+        <item name="fontVariationSettings">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
+        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
     </style>
 
     <style name="SudSwitchStyle">
@@ -1736,7 +1812,7 @@
         <item name="android:textDirection">locale</item>
         <item name="android:accessibilityHeading" tools:targetApi="p">true</item>
         <item name="android:textSize">@dimen/sud_glif_header_title_size_material_you</item>
-        <item name="android:hyphenationFrequency" tools:targetApi="23">full</item>
+        <item name="android:hyphenationFrequency" tools:targetApi="23">normal</item>
     </style>
 
     <style name="SudGlifHeaderTitleExpressive" parent="SudGlifHeaderTitleMaterialYou">
@@ -1745,8 +1821,8 @@
         <item name="android:textFontWeight" tools:targetApi="28">500</item>
         <item name="fontFamily">google-sans-flex</item>
         <item name="android:fontFamily">google-sans-flex</item>
-        <item name="fontVariationSettings">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
-        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0.0, \'FILL\' 0.0, \'GRAD\' 0.0, \'HEXP\' 0.0, \'ROND\' 100.0, \'opsz\' 16.0, \'slnt\' 0.0, \'wdth\' 100.0, \'wght\' 500.0</item>
+        <item name="fontVariationSettings">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
+        <item name="android:fontVariationSettings" tools:targetApi="28">\'CRSV\' 0, \'FILL\' 0, \'GRAD\' 0, \'HEXP\' 0, \'ROND\' 100, \'opsz\' 16, \'slnt\' 0, \'wdth\' 100, \'wght\' 500</item>
         <item name="android:hyphenationFrequency" tools:targetApi="23">normal</item>
     </style>
 
@@ -1759,6 +1835,7 @@
         <item name="android:layout_marginEnd">?attr/sudMarginEnd</item>
         <item name="android:fontFamily">@string/sudFontSecondary</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:hyphenationFrequency" tools:targetApi="23">normal</item>
     </style>
 
     <style name="SudGlifDescriptionMaterialYou">
@@ -1776,6 +1853,7 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textDirection">locale</item>
         <item name="android:textSize">@dimen/sud_glif_description_text_size_material_you</item>
+        <item name="android:hyphenationFrequency" tools:targetApi="23">normal</item>
     </style>
 
     <style name="SudGlifDescriptionExpressive">
@@ -1816,6 +1894,10 @@
         <item name="android:adjustViewBounds">true</item>
         <item name="android:maxHeight">?attr/sudAccountAvatarMaxHeight</item>
         <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="SudGlifAccountAvatarExpressive" parent="SudGlifAccountAvatar">
+        <item name="android:layout_gravity">top</item>
     </style>
 
     <style name="SudGlifAccountName">
@@ -1947,21 +2029,18 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="sudInfoFooterIconContainer">
-        <item name="android:paddingRight">@dimen/sud_info_footer_icon_padding_end</item>
-        <item name="android:paddingEnd">@dimen/sud_info_footer_icon_padding_end</item>
-        <item name="android:paddingBottom">@dimen/sud_info_footer_icon_padding_bottom</item>
-    </style>
-
     <style name="sudInfoFooterIcon">
         <item name="android:tint">@color/sud_color_on_surface</item>
         <item name="android:layout_width">@dimen/sud_info_footer_icon_size</item>
         <item name="android:layout_height">@dimen/sud_info_footer_icon_size</item>
+        <item name="android:layout_marginRight">@dimen/sud_info_footer_icon_padding_end</item>
+        <item name="android:layout_marginEnd">@dimen/sud_info_footer_icon_padding_end</item>
     </style>
 
     <style name="sudInfoFooterIconExpressive" parent="sudInfoFooterIcon">
         <item name="android:layout_width">@dimen/sud_glif_expressive_info_footer_icon_size</item>
         <item name="android:layout_height">@dimen/sud_glif_expressive_info_footer_icon_size</item>
+        <item name="android:layout_marginBottom">@dimen/sud_info_footer_icon_padding_bottom</item>
     </style>
 
     <style name="sudInfoFooterTitle">
@@ -2126,6 +2205,7 @@
         <item name="android:textColor">@color/sud_card_view_text_color</item>
         <item name="android:paddingTop">@dimen/sud_card_view_title_spacing_top</item>
         <item name="android:layout_marginBottom">@dimen/sud_card_view_title_margin_bottom</item>
+        <item name="android:hyphenationFrequency" tools:targetApi="23">normal</item>
     </style>
 
 </resources>

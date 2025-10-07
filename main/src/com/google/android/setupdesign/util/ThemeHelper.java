@@ -194,6 +194,14 @@ public final class ThemeHelper {
     return PartnerConfigHelper.isSetupWizardDynamicColorEnabled(context);
   }
 
+  /**
+   * Returns {@code true} if this {@code context} should apply full dynamic color. Full dynamic
+   * color is generically about background color.
+   */
+  public static boolean shouldApplyFullDynamicColor(@NonNull Context context) {
+    return PartnerConfigHelper.isSetupWizardFullDynamicColorEnabled(context);
+  }
+
   /** Returns {@code true} if this {@code context} should applied Glif expressive style. */
   public static boolean shouldApplyGlifExpressiveStyle(@NonNull Context context) {
     return PartnerConfigHelper.isGlifExpressiveEnabled(context);
@@ -271,7 +279,12 @@ public final class ThemeHelper {
     String themeName = PartnerConfigHelper.getSuwDefaultThemeString(context);
     @StyleRes int defaultTheme;
 
-    if (shouldApplyGlifExpressiveStyle(context)) {
+    if (PartnerConfigHelper.shouldApplyModalDialog(context)) {
+      LOG.atInfo("Applying the modal dialog style");
+      return isDayNightEnabled
+          ? R.style.SudThemeModalGlifExpressive_DayNight
+          : R.style.SudThemeModalGlifExpressive_Light;
+    } else if (shouldApplyGlifExpressiveStyle(context)) {
       LOG.atInfo(
           "Return "
               + (isDayNightEnabled

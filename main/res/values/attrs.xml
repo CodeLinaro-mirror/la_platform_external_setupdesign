@@ -209,7 +209,6 @@
     <attr name="sudBulletPointIconContainerStyle" format="reference" />
     <attr name="sudAdditionalBodyTextStyle" format="reference" />
     <attr name="sudInfoFooterContainerStyle" format="reference" />
-    <attr name="sudInfoFooterIconContainerStyle" format="reference" />
     <attr name="sudInfoFooterIconStyle" format="reference" />
     <attr name="sudInfoFooterTitleStyle" format="reference" />
     <attr name="sudContentFramePaddingTop" format="dimension|reference" />
@@ -224,6 +223,11 @@
     <attr name="sudAnimationId" format="reference" />
     <attr name="sudItemRadioButtonStyle" format="reference" />
     <attr name="sudItemIconDefaultTint" format="color" />
+    <attr name="sudItemRecyclable" format="boolean" />
+    <attr name="sudRecyclerViewPaddingTop" format="dimension|reference" />
+    <attr name="sudRecyclerViewMarginTop" format="dimension|reference" />
+    <attr name="sudRecyclerViewMarginBottom" format="dimension|reference" />
+    <attr name="sudRecyclerViewPaddingBottom" format="dimension|reference" />
 
     <!-- EditBox -->
     <attr name="sudEditBoxStyle" format="reference" />
@@ -320,6 +324,7 @@
         <attr name="android:contentDescription" />
         <attr name="sudIconTint" />
         <attr name="sudIconGravity" />
+        <attr name="sudItemRecyclable" />
     </declare-styleable>
 
     <declare-styleable name="SudDividerItemDecoration">
@@ -444,8 +449,9 @@
     <declare-styleable name="SudCardView">
         <attr name="sudIcon" format="reference" />
         <attr name="sudTitleText" format="string|reference" />
+        <attr name="sudTitleSize" format="dimension|reference" />
         <attr name="sudCardViewSkipClickSelection" format="boolean" />
-        <attr name="android:lineHeight" />
+        <attr name="sudFontFamily" format="string|reference" />
     </declare-styleable>
 
     <attr name="sudCardContainerStyle" format="reference" />
