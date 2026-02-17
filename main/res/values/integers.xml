@@ -23,4 +23,7 @@
     <!-- Glif expressive account name font weight -->
     <integer name="sud_glif_account_name_text_font_weight">600</integer>
 
+    <!-- The delay time of lottie animation. -->
+    <integer name="sud_lottie_animation_delay_ms">3000</integer>
+
 </resources>

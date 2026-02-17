@@ -18,7 +18,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="sud_next_button_label" msgid="6328701463199740381">"بعدی"</string>
-    <string name="sud_back_button_label" msgid="7489072821281801727">"برگشت"</string>
+    <string name="sud_back_button_label" msgid="7489072821281801727">"برگشتن"</string>
     <string name="sud_skip_button_label" msgid="7179992472691302817">"رد شدن"</string>
     <string name="sud_more_button_label" msgid="7621069783233060852">"بیشتر"</string>
     <string name="sud_expressive_accessibility_more_button_label" msgid="9095475386748768626">"پیمایش به‌پایین"</string>
@@ -32,4 +32,6 @@
     <string name="sud_lottie_animation_view_accessibility_action_pause" msgid="3594346538387297612">"مکث"</string>
     <string name="sud_lottie_animation_view_accessibility_action_resume" msgid="5654144404528664842">"ازسر گرفتن"</string>
     <string name="sud_lottie_animation_view_accessibility_description" msgid="2130817807970911136">"پویانمایی"</string>
+    <string name="sud_qrcode_content_description" msgid="7201320681442117512">"رمزینه پاسخ‌سریع"</string>
+    <string name="sud_qrcode_animation_control" msgid="219222410307225239">"موقتاً متوقف کردن پویانمایی"</string>
 </resources>

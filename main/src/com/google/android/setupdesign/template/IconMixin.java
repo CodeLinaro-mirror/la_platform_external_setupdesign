@@ -17,11 +17,14 @@
 package com.google.android.setupdesign.template;
 
 import android.content.Context;
+import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -29,13 +32,24 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.RawRes;
 import com.google.android.setupcompat.internal.TemplateLayout;
 import com.google.android.setupcompat.partnerconfig.PartnerConfig;
 import com.google.android.setupcompat.partnerconfig.PartnerConfigHelper;
 import com.google.android.setupcompat.template.Mixin;
+import com.google.android.setupcompat.util.DelightHelper;
+import com.google.android.setupcompat.util.Logger;
 import com.google.android.setupdesign.R;
 import com.google.android.setupdesign.util.HeaderAreaStyler;
+import com.google.android.setupdesign.util.LottieAnimationHelper;
 import com.google.android.setupdesign.util.PartnerStyleHelper;
+import com.google.android.setupdesign.view.SudLottieAnimationView;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A {@link com.google.android.setupcompat.template.Mixin} for setting an icon on the template
@@ -43,11 +57,20 @@ import com.google.android.setupdesign.util.PartnerStyleHelper;
  */
 public class IconMixin implements Mixin {
 
+  private static final Logger LOG = new Logger(IconMixin.class);
+
   private final TemplateLayout templateLayout;
 
   private final int originalHeight;
   private final ImageView.ScaleType originalScaleType;
   private final Context context;
+  private boolean isAnimatedIconDelayed = true;
+  @DrawableRes private int staticResIcon = 0;
+  private SudLottieAnimationView lottieView;
+  private boolean isSetAnimatedIcon = false;
+
+  public final Map<String, Integer> colorResourceMapping = new HashMap<>();
+
   /**
    * A {@link com.google.android.setupcompat.template.Mixin} for setting and getting the Icon.
    *
@@ -73,11 +96,17 @@ public class IconMixin implements Mixin {
         context.obtainStyledAttributes(
             attrs, R.styleable.SudIconMixin, defStyleAttr, /* defStyleRes= */ 0);
 
-    @DrawableRes
-    final int icon = a.getResourceId(R.styleable.SudIconMixin_android_icon, /* defValue= */ 0);
-    if (icon != 0 || PartnerConfigHelper.isGlifExpressiveEnabled(context)) {
-      setIcon(icon);
+    staticResIcon = a.getResourceId(R.styleable.SudIconMixin_android_icon, /* defValue= */ 0);
+    if (staticResIcon != 0 || PartnerConfigHelper.isGlifExpressiveEnabled(context)) {
+      setIcon(staticResIcon);
     }
+
+    @RawRes
+    final int animationIcon =
+        a.getResourceId(R.styleable.SudIconMixin_sudAnimationIcon, /* defValue= */ 0);
+
+    isAnimatedIconDelayed =
+        a.getBoolean(R.styleable.SudIconMixin_sudIsAnimatedIconDelayed, /* defValue= */ true);
 
     final boolean upscaleIcon =
         a.getBoolean(R.styleable.SudIconMixin_sudUpscaleIcon, /* defValue= */ false);
@@ -85,6 +114,7 @@ public class IconMixin implements Mixin {
 
     @ColorInt int iconTint = a.getColor(R.styleable.SudIconMixin_sudIconTint, Color.TRANSPARENT);
     if (PartnerConfigHelper.isGlifExpressiveEnabled(context)
+        && PartnerConfigHelper.isSetupWizardDynamicColorEnabled(context)
         && PartnerConfigHelper.get(context)
             .isPartnerConfigAvailable(PartnerConfig.CONFIG_ICON_COLOR)) {
       iconTint =
@@ -95,7 +125,56 @@ public class IconMixin implements Mixin {
       setIconTint(iconTint);
     }
 
+    lottieView = templateLayout.findManagedViewById(R.id.sud_layout_animation_icon);
+    updateLottieView(animationIcon, /* setStaticIcon= */ true);
+
     a.recycle();
+  }
+
+  private void updateLottieView(@RawRes int animationIcon, boolean setStaticIcon) {
+    if (DelightHelper.shouldApplyAnimatedIcon(context)
+        && PartnerConfigHelper.isGlifExpressiveEnabled(context)) {
+      if (lottieView != null) {
+        lottieView.setVisibility(View.VISIBLE);
+      }
+      try {
+        List<String> colorResultText = new ArrayList<>();
+        Collections.addAll(
+            colorResultText,
+            context.getResources().getStringArray(R.array.layout_animated_icon_customization));
+        LottieAnimationHelper.get().applyColor(context, lottieView, colorResultText);
+
+        if (animationIcon != 0) {
+          InputStream inputRaw = context.getResources().openRawResource(animationIcon);
+          // Set LottieAnimationView with inputStream
+          lottieView.setAnimation(inputRaw, null);
+          isSetAnimatedIcon = true;
+        } else {
+          if (staticResIcon != 0 && setStaticIcon) {
+            lottieView.setImageResource(staticResIcon);
+          }
+        }
+
+        // Create a Handler to delay the animation start by a delay time.
+        if (isAnimatedIconDelayed) {
+          new Handler(Looper.getMainLooper())
+              .postDelayed(
+                  () -> {
+                    if (lottieView != null) {
+                      lottieView.setProgress(0f);
+                      lottieView.playAnimation();
+                    }
+                  },
+                  context.getResources().getInteger(R.integer.sud_lottie_animation_delay_ms));
+        } else {
+          lottieView.setProgress(0f);
+          lottieView.playAnimation();
+        }
+
+      } catch (NullPointerException | NotFoundException | IllegalStateException e) {
+        LOG.e("Fail to display the lottie icon from partner overlay, e=" + e.getMessage());
+      }
+    }
   }
 
   /** Tries to apply the partner customization to the header icon. */
@@ -121,12 +200,23 @@ public class IconMixin implements Mixin {
       }
       iconView.setImageDrawable(icon);
       if (PartnerConfigHelper.isGlifExpressiveEnabled(context)) {
-        iconView.setVisibility(icon != null ? View.VISIBLE : View.INVISIBLE);
+        if (DelightHelper.shouldApplyAnimatedIcon(context)) {
+          iconView.setVisibility(View.GONE);
+          if (lottieView != null) {
+            lottieView.setVisibility(View.VISIBLE);
+            if (!isSetAnimatedIcon) {
+              lottieView.setImageDrawable(icon);
+            }
+          }
+          setIconContainerVisibility(View.VISIBLE);
+        } else {
+          iconView.setVisibility(icon != null ? View.VISIBLE : View.INVISIBLE);
+          setIconContainerVisibility(iconView.getVisibility());
+        }
       } else {
         iconView.setVisibility(icon != null ? View.VISIBLE : View.GONE);
+        setIconContainerVisibility(iconView.getVisibility());
       }
-
-      setIconContainerVisibility(iconView.getVisibility());
       tryApplyPartnerCustomizationStyle();
     }
   }
@@ -143,12 +233,35 @@ public class IconMixin implements Mixin {
       // support lib users, which enables vector drawable compat to work on versions pre-L.
       iconView.setImageResource(icon);
       if (PartnerConfigHelper.isGlifExpressiveEnabled(context)) {
-        iconView.setVisibility(icon != 0 ? View.VISIBLE : View.INVISIBLE);
+        if (DelightHelper.shouldApplyAnimatedIcon(context)) {
+          iconView.setVisibility(View.GONE);
+          if (lottieView != null) {
+            lottieView.setVisibility(View.VISIBLE);
+            if (!isSetAnimatedIcon) {
+              lottieView.setImageResource(icon);
+            }
+          }
+          setIconContainerVisibility(View.VISIBLE);
+        } else {
+          iconView.setVisibility(icon != 0 ? View.VISIBLE : View.INVISIBLE);
+          setIconContainerVisibility(iconView.getVisibility());
+        }
       } else {
         iconView.setVisibility(icon != 0 ? View.VISIBLE : View.GONE);
+        setIconContainerVisibility(iconView.getVisibility());
       }
-      setIconContainerVisibility(iconView.getVisibility());
+      tryApplyPartnerCustomizationStyle();
     }
+  }
+
+  /**
+   * Sets the animated icon on this layout. The animated icon can also be set in XML using {@code
+   * sudAnimationIcon}.
+   *
+   * @param animationIcon A raw resource id of lottie file.
+   */
+  public void setAnimatedIcon(@RawRes int animationIcon) {
+    updateLottieView(animationIcon, /* setStaticIcon= */ false);
   }
 
   /** @return The icon previously set in {@link #setIcon(Drawable)} or {@code android:icon} */
