@@ -80,6 +80,7 @@ import com.google.android.setupdesign.template.ProgressBarMixin;
 import com.google.android.setupdesign.template.RequireScrollMixin;
 import com.google.android.setupdesign.template.ScrollViewScrollHandlingDelegate;
 import com.google.android.setupdesign.util.DescriptionStyler;
+import com.google.android.setupdesign.util.ItemStyler;
 import com.google.android.setupdesign.util.LayoutStyler;
 import com.google.android.setupdesign.util.ThemeHelper;
 import java.util.ArrayList;
@@ -889,7 +890,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
   public boolean isShortcutIconVisible() {
     ImageButton accessibilityButton = findManagedViewById(R.id.accessibility_button);
     boolean useA11yShortcut = PartnerConfigHelper.isSuwUseA11yShortcutEnabled(getContext());
-    boolean useSuwModal = PartnerConfigHelper.isSuwUseModalDialogEnabled(getContext());
+    boolean useSuwModal = PartnerConfigHelper.shouldApplyModalDialog(getContext());
 
     return (accessibilityButton != null && useA11yShortcut && useSuwModal);
   }
@@ -917,13 +918,15 @@ public class GlifLayout extends PartnerCustomizationLayout {
   private void initAccessibilityButton() {
     ImageButton accessibilityButton = findManagedViewById(R.id.accessibility_button);
     boolean useA11yShortcut = PartnerConfigHelper.isSuwUseA11yShortcutEnabled(getContext());
-    boolean useSuwModal = PartnerConfigHelper.isSuwUseModalDialogEnabled(getContext());
+    boolean useSuwModal = PartnerConfigHelper.shouldApplyModalDialog(getContext());
 
     if (accessibilityButton == null || !useA11yShortcut || !useSuwModal) {
       return;
     }
 
     accessibilityButton.setVisibility(View.VISIBLE);
+    ItemStyler.applyFocusRingDrawable(
+        getContext(), accessibilityButton, ItemStyler.FocusIndicatorShape.CIRCLE, null);
     accessibilityButton.setOnClickListener(
         v -> {
           Activity activity = PartnerCustomizationLayout.lookupActivityFromContext(getContext());
