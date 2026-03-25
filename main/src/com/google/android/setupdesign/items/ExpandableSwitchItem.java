@@ -57,7 +57,6 @@ public class ExpandableSwitchItem extends SwitchItem
   private boolean isExpanded = false;
   private boolean canExpanded = true;
   private boolean isSwitchItem = true;
-  private int contentContainerTalkbackId = View.generateViewId();
 
   private final AccessibilityDelegateCompat accessibilityDelegate =
       new AccessibilityDelegateCompat() {
@@ -65,9 +64,6 @@ public class ExpandableSwitchItem extends SwitchItem
         public void onInitializeAccessibilityNodeInfo(
             View view, AccessibilityNodeInfoCompat nodeInfo) {
           super.onInitializeAccessibilityNodeInfo(view, nodeInfo);
-          if (view.getId() == R.id.sud_items_summary_container) {
-            nodeInfo.setUniqueId(Integer.toString(contentContainerTalkbackId));
-          }
           nodeInfo.addAction(
               isExpanded()
                   ? AccessibilityActionCompat.ACTION_COLLAPSE
@@ -205,11 +201,10 @@ public class ExpandableSwitchItem extends SwitchItem
     if (PartnerConfigHelper.isGlifExpressiveEnabled(view.getContext())) {
       View moreInfo = view.findViewById(R.id.sud_items_more_info);
       View contentContainer = view.findViewById(R.id.sud_items_summary_container);
-      if (contentContainer != null) {
-        if (canExpanded) {
+      if (canExpanded) {
+        if (contentContainer != null) {
           contentContainer.setOnClickListener(this);
         }
-        ViewCompat.setAccessibilityDelegate(contentContainer, accessibilityDelegate);
       }
       if (moreInfo != null) {
         if (!canExpanded) {
