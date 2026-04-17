@@ -27,8 +27,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.setupcompat.partnerconfig.PartnerConfigHelper
+import com.google.android.setupcompat.util.FocusIndicatorDrawable
 import com.google.android.setupcompat.util.Logger
-import com.google.android.setupdesign.strings.R;
+import com.google.android.setupdesign.strings.R
 
 /** A [LottieAnimationView] that take response to pause and resume animation when user clicks. */
 class SudLottieAnimationView
@@ -53,6 +55,17 @@ constructor(context: Context, attrs: AttributeSet? = null) :
     )
     addAnimatorListener(this)
     addAnimatorPauseListener(this)
+    if (PartnerConfigHelper.isSuwUseFocusRingEnabled(context)) {
+      applyFocusRingDrawable(this)
+    }
+  }
+
+  private fun applyFocusRingDrawable(view: View) {
+    view.foreground =
+      FocusIndicatorDrawable.Builder(view.context)
+        .withHorizontalPaddingAdjustment(-3)
+        .withVerticalPaddingAdjustment(-3)
+        .build()
   }
 
   private fun buildAccessibilityAction(@StringRes stringId: Int) =

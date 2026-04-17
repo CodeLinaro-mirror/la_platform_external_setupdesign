@@ -72,6 +72,7 @@ import com.google.android.setupcompat.util.Logger;
 import com.google.android.setupcompat.util.WizardManagerHelper;
 import com.google.android.setupdesign.template.DescriptionMixin;
 import com.google.android.setupdesign.template.FloatingBackButtonMixin;
+import com.google.android.setupdesign.template.FloatingSetupProgressIndicatorMixin;
 import com.google.android.setupdesign.template.HeaderMixin;
 import com.google.android.setupdesign.template.IconMixin;
 import com.google.android.setupdesign.template.IllustrationProgressMixin;
@@ -80,6 +81,7 @@ import com.google.android.setupdesign.template.ProgressBarMixin;
 import com.google.android.setupdesign.template.RequireScrollMixin;
 import com.google.android.setupdesign.template.ScrollViewScrollHandlingDelegate;
 import com.google.android.setupdesign.util.DescriptionStyler;
+import com.google.android.setupdesign.util.ItemStyler;
 import com.google.android.setupdesign.util.LayoutStyler;
 import com.google.android.setupdesign.util.ThemeHelper;
 import java.util.ArrayList;
@@ -177,6 +179,9 @@ public class GlifLayout extends PartnerCustomizationLayout {
     registerMixin(IllustrationProgressMixin.class, new IllustrationProgressMixin(this));
     registerMixin(
         FloatingBackButtonMixin.class, new FloatingBackButtonMixin(this, attrs, defStyleAttr));
+    registerMixin(
+        FloatingSetupProgressIndicatorMixin.class,
+        new FloatingSetupProgressIndicatorMixin(this, attrs, defStyleAttr));
     final RequireScrollMixin requireScrollMixin = new RequireScrollMixin(this);
     registerMixin(RequireScrollMixin.class, requireScrollMixin);
     final ScrollView scrollView = getScrollView();
@@ -469,6 +474,16 @@ public class GlifLayout extends PartnerCustomizationLayout {
   }
 
   @Override
+  protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    FloatingSetupProgressIndicatorMixin floatingSetupProgressIndicatorMixin =
+        getMixin(FloatingSetupProgressIndicatorMixin.class);
+    if (floatingSetupProgressIndicatorMixin != null) {
+      floatingSetupProgressIndicatorMixin.onAttachedToWindow();
+    }
+  }
+
+  @Override
   protected void onDetachedFromWindow() {
     super.onDetachedFromWindow();
     // Log metrics of UI component
@@ -494,6 +509,11 @@ public class GlifLayout extends PartnerCustomizationLayout {
     if (headerScrollView != null) {
       headerScrollView.getViewTreeObserver().removeOnScrollChangedListener(onScrollChangedListener);
       headerScrollView.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+    }
+    FloatingSetupProgressIndicatorMixin floatingSetupProgressIndicatorMixin =
+        getMixin(FloatingSetupProgressIndicatorMixin.class);
+    if (floatingSetupProgressIndicatorMixin != null) {
+      floatingSetupProgressIndicatorMixin.onDetachFromWindow();
     }
   }
 
@@ -889,7 +909,7 @@ public class GlifLayout extends PartnerCustomizationLayout {
   public boolean isShortcutIconVisible() {
     ImageButton accessibilityButton = findManagedViewById(R.id.accessibility_button);
     boolean useA11yShortcut = PartnerConfigHelper.isSuwUseA11yShortcutEnabled(getContext());
-    boolean useSuwModal = PartnerConfigHelper.isSuwUseModalDialogEnabled(getContext());
+    boolean useSuwModal = PartnerConfigHelper.shouldApplyModalDialog(getContext());
 
     return (accessibilityButton != null && useA11yShortcut && useSuwModal);
   }
@@ -917,13 +937,15 @@ public class GlifLayout extends PartnerCustomizationLayout {
   private void initAccessibilityButton() {
     ImageButton accessibilityButton = findManagedViewById(R.id.accessibility_button);
     boolean useA11yShortcut = PartnerConfigHelper.isSuwUseA11yShortcutEnabled(getContext());
-    boolean useSuwModal = PartnerConfigHelper.isSuwUseModalDialogEnabled(getContext());
+    boolean useSuwModal = PartnerConfigHelper.shouldApplyModalDialog(getContext());
 
     if (accessibilityButton == null || !useA11yShortcut || !useSuwModal) {
       return;
     }
 
     accessibilityButton.setVisibility(View.VISIBLE);
+    ItemStyler.applyFocusRingDrawable(
+        getContext(), accessibilityButton, ItemStyler.FocusIndicatorShape.CIRCLE, null);
     accessibilityButton.setOnClickListener(
         v -> {
           Activity activity = PartnerCustomizationLayout.lookupActivityFromContext(getContext());
